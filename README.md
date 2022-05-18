@@ -1,12 +1,12 @@
 # TP RIO
 
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps)
-[![GitHub license](https://img.shields.io/github/license/ThomasByr/rio)](https://github.com/ThomasByr/rio/blob/master/LICENSE)
-[![GitHub commits](https://badgen.net/github/commits/ThomasByr/rio)](https://GitHub.com/ThomasByr/rio/commit/)
-[![GitHub latest commit](https://badgen.net/github/last-commit/ThomasByr/rio)](https://gitHub.com/ThomasByr/rio/commit/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/ThomasByr/rio/graphs/commit-activity)
+[![GitHub license](https://img.shields.io/github/license/ThomasByr/chat-server)](https://github.com/ThomasByr/chat-server/blob/master/LICENSE)
+[![GitHub commits](https://badgen.net/github/commits/ThomasByr/chat-server)](https://GitHub.com/ThomasByr/chat-server/commit/)
+[![GitHub latest commit](https://badgen.net/github/last-commit/ThomasByr/chat-server)](https://gitHub.com/ThomasByr/chat-server/commit/)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/ThomasByr/chat-server/graphs/commit-activity)
 
-[![GitHub version](https://badge.fury.io/gh/ThomasByr%2Frio.svg)](https://github.com/ThomasByr/rio)
+[![GitHub version](https://badge.fury.io/gh/ThomasByr%2Fchat-server.svg)](https://github.com/ThomasByr/chat-server)
 [![Author](https://img.shields.io/badge/author-@ThomasByr-blue)](https://github.com/ThomasByr)
 [![Author](https://img.shields.io/badge/author-@ThomasD-blue)](https://github.com/LosKeeper)
 
@@ -14,7 +14,7 @@
 
 > [Project instruction paper](https://moodle.unistra.fr/) (subject) on the Moodle page.
 
-**If you ever get this in .7z, .zip, .tar.gz, .rar or whatever archive format, please ensure you do have the latest version by paying a visit to [the home repo](https://github.com/ThomasByr/rio) on GitHub !**
+**If you ever get this in .7z, .zip, .tar.gz, .rar or whatever archive format, please ensure you do have the latest version by paying a visit to [the home repo](https://github.com/ThomasByr/chat-server) on GitHub !**
 
 1. [✏️ In short](#️-in-short)
 2. [🔰 Prerequisites](#-prerequisites)
@@ -42,13 +42,20 @@ Here you can find the code standard used during dev. The compatibility version c
 
 ## 👩‍🏫 Usage
 
-Compile and run a release version with
+Compile debug versions with
 
 ```bash
-make run-release
+make
 ```
 
-Alternatively `make release` will produce a release version of the executable, `make debug` a debug one, `make run-release` will compile and then run a release version, `make run-debug` will compile and run a debug version with valgrind, and finally `make` is a binding for building the debug version. You can run an existing executable with `make run`, and clean with `make clean`.
+Alternatively, `make debug-client` produces a debug version of the client side executable binary, `make debug-server` a debug version of the server side executable binary. You can clean with `make clean`.
+
+You can also run tests with
+
+```bash
+cd tests
+make check
+```
 
 ## ⚖️ License
 
