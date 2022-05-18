@@ -61,7 +61,7 @@ noreturn void get_help(char *restrict s) {
         fprintf(stdout, "%s\n", s);
     }
 
-    fprintf(stdout, "usage: ./bin/rio [OPTION]...\n");
+    fprintf(stdout, "usage: ./bin/server || ./bin/client [OPTION]...\n");
     fprintf(stdout, "options:\n");
     fprintf(stdout, "    -h, --help\n");
     fprintf(stdout, "        print this help and exit\n");
@@ -79,7 +79,7 @@ noreturn void get_version(void) {
     snprintf_s(v, BUFSIZ, "%d.%d.%d", __VERSION_MAJOR__, __VERSION_MINOR__,
                __VERSION_PATCH__);
 
-    fprintf(stdout, "rio\nauthors: %s\n", __AUTHOR__);
+    fprintf(stdout, "chat-server\nauthors: %s\n", __AUTHOR__);
     fprintf(stdout, "version: %s\n", v);
     fflush(stdout);
 

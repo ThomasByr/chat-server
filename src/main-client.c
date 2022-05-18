@@ -1,4 +1,4 @@
-//! rio
+//! chat-server
 //!
 //! Copyright (c) 2022, ThomasByr x ThomasD.
 //! All rights reserved.
@@ -34,7 +34,7 @@
 //! @author ThomasD <https://github.com/LosKeeper>
 //! @brief Main entry point for this project executable.
 //!
-//! @see <https://github.com/ThomasByr/rio>
+//! @see <https://github.com/ThomasByr/chat-server>
 //!
 
 #include "lib.h"
