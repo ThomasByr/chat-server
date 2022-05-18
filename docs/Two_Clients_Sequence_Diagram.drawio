@@ -1,1 +1,128 @@
-<mxfile host="app.diagrams.net" modified="2022-05-18T19:02:21.358Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36" etag="nuIp1s2F2uPSORtlFOT3" version="18.0.7" type="device"><diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">7Vttc9o4EP41fGzHL9jAxwBtrr30LlNupulHxRZYE9misgjQX38rI2FsmWAoDiQwQzLWei3Ju8/uPpKg5Q7ixS1H0+gbCzFtOVa4aLnDluPYbcdpyY8VLleSjtddCSachEopF4zIb6yElpLOSIjTgqJgjAoyLQoDliQ4EAUZ4pzNi2pjRoujTtEEG4JRgKgp/UFCEa2kXc/K5X9hMon0yLal7sRIKytBGqGQzTdE7qeWO+CMidVVvBhgKo2n7bJ67vOWu+uJcZyIOg9Mv85/JdiZjYcfbh5uafvh75/zD6qXZ0Rn6oVHmD9jrqYsltoOnM2SEMuurJbbn0dE4NEUBfLuHDwPskjEFFo2XJpT0+NgLvBiQ6SmeotZjAVfgoq+q+2ocNNVzXnuBFtbNtpwgK9kSPl9su45Nw1cKOvsYSnHsNSAEvl+jmWf3Fqu752Xtdzt1nJObi3fPTNstQ1rGTbCSXgj0xm0Epbgok2KBgTD8OWDbHz0dPOn0swaw8Wm5nCpWqlAXOhBGExGyz4TutP6oDfBYnf84LCQb00fbTjBq/CBlnFMkSDPxSxd5Rg1wj0jGfoUBNpOMWB6Tsm3KZvxAKunNrNquSOviCW3DJKVYYyOMpysX/tw6HhHhc4fQeBMXOv3rOO4ttyR3X5d1/pnkRVgCOX85nPEeQHJ9o8EJNvrffROCqXOXlAKKEpTEtROFLn+W8sV5TJgl7N3bReXsGJ01LCDe4aDb2YiAquTMQnAQiyRc0lC+P/f4H5jvVSGAVAoUXR8Kjh7wgNGGc/TzBh8XBIhSiaJRAOMCgsIty8JGQxOb9SNmIShHKaS4RXhtRU39Ume0y55xK1geVYFtNymWJ5e0m4utgTj2PBBOicxRSs7s0SM1B1pmCAiNLxDSzaTs4VwC550qx8xTn6DPso9B9GoltSuVdAYySdVnxynoHOvjW2XRN/QoqB4h1KhZ8MoRdOUPGbzkw/GAHOS9JkQLD6iL7cE16Yr2xWutL0XfKlG+w5RgJIJvME+w/k1gIMoxEGCBO5LbKdNhL1trt//QbF8FTaWBTeSl4FaeVVH+r7hTfFYvBTcKcQ1SSZ3mdqwnUu+K0tJEYPHxzQrHhE8iKGH/lTmxsx0Xh8+YMyBpCoezHUAbTtvw0eqczFgCUwfkQxYGHA5xxKbkEwEEuhxHTUmBF8O0N3AXBZdvguIzeUUc1vii0zvKAwhWtMrEF4JCHUzUnNA6BpAuEOzJIhABnVVkgAcZkjgGMkLcKncDuVPZvmJ0FReTjkLJIZ2bsk8Qi2ZZAX835mgJNHFoDFr92pau7ENG3u/HZvLIdTlNbOxHXIooX7tfRXbZNRXsnYIWXOvZE3vgJr8/0rWDq/RvdrAPBey5phs/UrWTgCEk5M1zRbeIlnb29onJ2uOeRj5h2Tt3FlYeVvTOxYLMzpqmIU5Js/+gbIJCiYdiLMdTQR/MYBffpVD3Wk5/q+Z/GZFf/PcWcu2ZdV3sOtZOtr2qope1dl2c7luvxPKdxB95aDxy4c9tc+WnR0dNR195rHRaBVxGW0hyZitScvlBlwx1fp2RcDZrxpw5k7QpZ8FeXYxkNyTnwU55vZCvay4ZZ/ozSbLtoarjp/ugcnS7+7oqOFk6ZqLu0uJLquUAr1Tp0DXXF+9c85RZvydsm3rh9GOjpoOI5PxK86xZvjvNo5KVapjnbpKuYdy9/depTq9I1Upo6Omw8v8UuGqSoUkvbhC1anaCDxSoYJm/tOOlffyH8i4n/4H</diagram></mxfile>
+<mxfile host="65bd71144e">
+    <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
+        <mxGraphModel dx="1093" dy="360" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-1" value="Server" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-2" value="Client 1" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="365" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-3" value="Client 2" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="630" y="80" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-4" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;startArrow=oval;startFill=1;" parent="1" target="pJwqne2ufD-AXGl4XKYw-2" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="425" y="920" as="sourcePoint"/>
+                        <mxPoint x="450" y="360" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-5" value="" style="endArrow=none;html=1;rounded=0;startArrow=oval;startFill=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="690" y="920" as="sourcePoint"/>
+                        <mxPoint x="690" y="140" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-6" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endFill=0;startArrow=oval;startFill=1;" parent="1" target="pJwqne2ufD-AXGl4XKYw-1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="160" y="920" as="sourcePoint"/>
+                        <mxPoint x="159.5" y="140" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-7" value="" style="endArrow=classic;html=1;rounded=0;startArrow=classic;startFill=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="425" y="160" as="sourcePoint"/>
+                        <mxPoint x="160" y="160" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-9" value="Authentification and TCP connect" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="130" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-10" value="Store" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="160" width="140" height="150" as="geometry">
+                        <mxRectangle x="20" y="160" width="60" height="30" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-11" value="Name of the client" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="pJwqne2ufD-AXGl4XKYw-10" vertex="1">
+                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-12" value="IP address of the client" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="pJwqne2ufD-AXGl4XKYw-10" vertex="1">
+                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-18" value="Launch dedicated thread or fork" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="pJwqne2ufD-AXGl4XKYw-10" vertex="1">
+                    <mxGeometry y="90" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-14" value="" style="endArrow=classic;html=1;rounded=0;startArrow=classic;startFill=1;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="690" y="360" as="sourcePoint"/>
+                        <mxPoint x="160" y="360" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-19" value="Store" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="360" width="140" height="150" as="geometry">
+                        <mxRectangle x="20" y="160" width="60" height="30" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-20" value="Name of the client" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="pJwqne2ufD-AXGl4XKYw-19" vertex="1">
+                    <mxGeometry y="30" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-21" value="IP address of the client" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="pJwqne2ufD-AXGl4XKYw-19" vertex="1">
+                    <mxGeometry y="60" width="140" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-22" value="Launch dedicated thread or fork" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" parent="pJwqne2ufD-AXGl4XKYw-19" vertex="1">
+                    <mxGeometry y="90" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-23" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="425" y="560" as="sourcePoint"/>
+                        <mxPoint x="160" y="560" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-24" value="Want to send a message to &quot;Client 2&quot;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="530" width="120" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-25" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="160" y="640" as="sourcePoint"/>
+                        <mxPoint x="420" y="640" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-27" value="Send IP infos of &quot;Client 2&quot;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="235" y="610" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-28" value="Authentification and TCP connect" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="330" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-29" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="428" y="680" as="sourcePoint"/>
+                        <mxPoint x="688" y="680" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-31" value="TCP connect" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="505" y="650" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-32" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="425" y="730" as="sourcePoint"/>
+                        <mxPoint x="685" y="730" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-34" value="Send message" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="510" y="700" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-35" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" parent="1" edge="1">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="428" y="790" as="sourcePoint"/>
+                        <mxPoint x="688" y="790" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pJwqne2ufD-AXGl4XKYw-36" value="TCP disconnect" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="505" y="760" width="110" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
