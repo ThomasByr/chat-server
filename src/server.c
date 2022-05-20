@@ -13,6 +13,17 @@ void client_info_free(client_info_t *client_info) {
     free(client_info);
 }
 
+void *get_clients(void) { return NULL; }
+
+action_callback_t *exe(const char cmd) {
+    switch (cmd) {
+    case 'c':
+        return &get_clients;
+    }
+
+    return NULL;
+}
+
 int server(void) {
     dict_t *pages = dict_new(1);
     dict_itr_t *itr = dict_itr_new(pages);
@@ -158,9 +169,6 @@ void *handle_client(void *arg) {
             if (recv(sockfd_client, buf, BUFLEN, 0) == -1) {
                 panic(1, "recv failure");
             }
-            debug(1, "Received username: %s\n", buf);
-
-            // TODO: store client addr and username in dictionary
         }
         break;
     }
