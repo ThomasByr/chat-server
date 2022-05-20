@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="kgpKYQtTHZ0yAKxKKP6v" name="Page-1">
-        <mxGraphModel dx="1093" dy="360" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+        <mxGraphModel dx="1025" dy="387" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -62,7 +62,7 @@
                 </mxCell>
                 <mxCell id="pJwqne2ufD-AXGl4XKYw-19" value="Store" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
                     <mxGeometry x="20" y="360" width="140" height="150" as="geometry">
-                        <mxRectangle x="20" y="160" width="60" height="30" as="alternateBounds"/>
+                        <mxRectangle x="20" y="360" width="60" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="pJwqne2ufD-AXGl4XKYw-20" value="Name of the client" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;" parent="pJwqne2ufD-AXGl4XKYw-19" vertex="1">
