@@ -137,10 +137,10 @@ void *handle_client(void *arg) {
     FD_ZERO(&readfds);
     FD_SET(sockfd_client, &readfds);
 
-    // Wait TIMEOUT seconds for a message
-    tv.tv_sec = TIMEOUT;
-    tv.tv_usec = 0;
-    rtval = select(sockfd_client + 1, &readfds, NULL, NULL, &tv);
+    // // Wait TIMEOUT seconds for a message
+    // tv.tv_sec = TIMEOUT;
+    // tv.tv_usec = 0;
+    // rtval = select(sockfd_client + 1, &readfds, NULL, NULL, &tv);
 
     // reception of the username and store it in the dictionary with the client
     // address
