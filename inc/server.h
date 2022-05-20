@@ -8,9 +8,9 @@ typedef struct client_info_s {
     struct sockaddr_in *client_addr;
 } client_info_t;
 
-client_info_t *client_info_new(void);
+// client_info_t *client_info_new(void);
 
-void client_info_free(client_info_t *client_info);
+// void client_info_free(client_info_t *client_info);
 
 typedef struct server_thread_s {
     int sockfd_client;          // socket file descriptor
