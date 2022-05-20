@@ -50,11 +50,11 @@ int server(void) {
         server_thread->sockfd_client = sockfd_client;
         server_thread->my_addr = my_addr;
         server_thread->client = client;
-        TCHK(pthread_create(&thread, NULL, handle_client,
-                            (void *)server_thread));
+        T_CHK(pthread_create(&thread, NULL, handle_client,
+                             (void *)server_thread));
 
         // Join the thread
-        TCHK(pthread_join(thread, NULL));
+        T_CHK(pthread_join(thread, NULL));
     }
 }
 
