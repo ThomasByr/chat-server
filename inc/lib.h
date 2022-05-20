@@ -2,6 +2,7 @@
 
 #include <arpa/inet.h>
 #include <assert.h>
+#include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <fnmatch.h>
@@ -45,16 +46,16 @@
 #define __VERSION_MINOR__ 1
 #define __VERSION_PATCH__ 0
 
-#define CHK(op)                                                                \
-    do {                                                                       \
-        if ((op) == -1)                                                        \
-            panic(1, #op);                                                     \
+#define CHK(op)            \
+    do {                   \
+        if ((op) == -1)    \
+            panic(1, #op); \
     } while (0)
 
-#define T_CHK(op)                                                              \
-    do {                                                                       \
-        if ((errno = (op)) > 0)                                                \
-            panic(1, #op);                                                     \
+#define T_CHK(op)               \
+    do {                        \
+        if ((errno = (op)) > 0) \
+            panic(1, #op);      \
     } while (0)
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
@@ -136,3 +137,22 @@ void info(int first, const char *restrict fmt, ...);
  * @param fmt formated message to print
  */
 void snprintf_s(char *restrict str, size_t size, const char *restrict fmt, ...);
+
+/**
+ * @brief copies the string pointed to by src, including the terminating null
+ * byte ('\0')
+ *
+ * @param dest destination string
+ * @param src source string
+ * @param n number of characters to copy
+ * @return size_t - the number of characters copied, not including the
+ * terminating null byte
+ */
+size_t strlcpy(char *restrict dst, const char *restrict src, size_t siz);
+
+/**
+ * @brief suppress leading and trailing whitespaces.
+ *
+ * @param str - string to trim
+ */
+void trim(char *str);

@@ -85,3 +85,45 @@ void snprintf_s(char *restrict str, size_t size, const char *restrict fmt,
         panic(1, "format string too long");
     }
 }
+
+size_t strlcpy(char *restrict dst, const char *restrict src, size_t siz) {
+    char *d = dst;
+    const char *s = src;
+    size_t n = siz;
+
+    if (n != 0) {
+        while (--n != 0) {
+            if ((*d++ = *s++) == '\0') {
+                break;
+            }
+        }
+    }
+
+    if (n == 0) {
+        if (siz != 0) {
+            *d = '\0';
+        }
+        while (*s++) {
+        }
+    }
+    return s - src - 1;
+}
+
+void trim(char *str) {
+    char *end;
+
+    while (isspace(*str)) {
+        str++;
+    }
+
+    if (*str == 0) {
+        return;
+    }
+
+    end = str + strlen(str) - 1;
+    while (end > str && isspace(*end)) {
+        end--;
+    }
+
+    *(end + 1) = '\0';
+}
