@@ -92,7 +92,7 @@
 #define ASSERT(x) assert(x)
 #endif
 
-typedef void *(action_callback_t)(void);
+typedef void *(action_callback_t)(void *);
 typedef void *(for_each_callback_t)(void *, void *);
 typedef void(delete_callback_t)(void *);
 typedef void(print_callback_t)(void *);

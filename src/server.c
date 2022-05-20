@@ -13,7 +13,26 @@ void client_info_free(client_info_t *client_info) {
     free(client_info);
 }
 
-void *get_clients(void) { return NULL; }
+void *get_clients(void *arg) {
+    dict_t *dict = (dict_t *)arg;
+    dict_itr_t *itr = dict_itr_new(dict);
+
+    size_t n = dict_nitems(dict);
+    char *list = malloc(sizeof(char) * n * STR_LEN_MAX);
+    if (list == NULL)
+        panic(1, "malloc");
+
+    size_t i = 0;
+    while (dict_itr_has_next(itr)) {
+        size_t key = dict_itr_key(itr);
+        strlcpy(list + i * STR_LEN_MAX, (char *)key, STR_LEN_MAX);
+        i++;
+        dict_itr_next(itr);
+    }
+
+    dict_itr_free(itr);
+    return list;
+}
 
 action_callback_t *exe(const char cmd) {
     switch (cmd) {
@@ -139,7 +158,7 @@ void *handle_client(void *arg) {
     server_thread_t *server_thread = (server_thread_t *)arg;
     int sockfd_client = server_thread->sockfd_client;
     fd_set readfds = *(server_thread->readfds);
-    struct timeval tv = *(server_thread->tv);
+    // struct timeval tv = *(server_thread->tv);
     int rtval = *(server_thread->rtval);
 
     char buf[BUFLEN] = {0};
