@@ -15,6 +15,7 @@ void client_info_free(client_info_t *client_info) {
 
 int server(void) {
     dict_t *pages = dict_new(1);
+    dict_itr_t *itr = dict_itr_new(pages);
     sem_t sem_dict;
     T_CHK(sem_init(&sem_dict, 0, 1));
 
@@ -114,6 +115,13 @@ int server(void) {
         T_CHK(pthread_create(&thread, NULL, handle_client,
                              (void *)server_thread));
     }
+
+    dict_itr_discard_all(itr, free, (void (*)(void *))client_info_free);
+    dict_itr_free(itr);
+    dict_free(pages);
+    CHK(sem_destroy(&sem_dict));
+
+    return EXIT_SUCCESS;
 }
 
 void *handle_client(void *arg) {
@@ -165,4 +173,6 @@ void *handle_client(void *arg) {
 
         // TODO: exit if client is disconnected
     }
+
+    return NULL;
 }

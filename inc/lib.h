@@ -83,7 +83,7 @@
 #define BUFLEN 1 << 10
 #define IP_ADDR_SERVER "88.170.206.241"
 #define PORT_SERVER 32100
-#define TIMEOUT 600
+#define TIMEOUT 3600
 #define STR_LEN_MAX 32
 
 #ifndef DEBUG
