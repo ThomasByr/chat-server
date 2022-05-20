@@ -19,7 +19,7 @@ int server(void) {
     sem_t sem_dict;
     T_CHK(sem_init(&sem_dict, 0, 1));
 
-    // infinit loop
+    // infinite loop
     for (;;) {
 
         int sockfd;             // socket file descriptor
@@ -165,7 +165,7 @@ void *handle_client(void *arg) {
         break;
     }
 
-    // infinit loop
+    // infinite loop
     for (;;) {
         // TODO: wait for client asking a client username
 
