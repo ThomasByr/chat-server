@@ -38,6 +38,14 @@ action_callback_t *exe(const char cmd) {
     switch (cmd) {
     case 'c':
         return &get_clients;
+    case 's':
+        /* Send message to client */
+        break;
+    case 'q':
+        /* Quit */
+        break;
+    default:
+        return NULL;
     }
 
     return NULL;
