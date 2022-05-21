@@ -25,6 +25,14 @@ typedef struct server_thread_s {
     int *rtval;         // return value
 } server_thread_t;
 
+/**
+ * @brief The main function of the server.
+ * @return int The exit code of the program.
+ */
 int server(void);
 
+/**
+ * @brief Thread function to sendlet the server send info to a client.
+ * @param arg The argument to the thread.
+ */
 void *handle_client(void *arg);

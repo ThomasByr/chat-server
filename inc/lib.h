@@ -46,16 +46,16 @@
 #define __VERSION_MINOR__ 1
 #define __VERSION_PATCH__ 0
 
-#define CHK(op)            \
-    do {                   \
-        if ((op) == -1)    \
-            panic(1, #op); \
+#define CHK(op)                                                                \
+    do {                                                                       \
+        if ((op) == -1)                                                        \
+            panic(1, #op);                                                     \
     } while (0)
 
-#define T_CHK(op)               \
-    do {                        \
-        if ((errno = (op)) > 0) \
-            panic(1, #op);      \
+#define T_CHK(op)                                                              \
+    do {                                                                       \
+        if ((errno = (op)) > 0)                                                \
+            panic(1, #op);                                                     \
     } while (0)
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
@@ -96,6 +96,11 @@ typedef void *(action_callback_t)(void *);
 typedef void *(for_each_callback_t)(void *, void *);
 typedef void(delete_callback_t)(void *);
 typedef void(print_callback_t)(void *);
+
+typedef struct client_message_s {
+    char msg[BUFLEN];
+    char name_id[STR_LEN_MAX];
+} client_message_t;
 
 /**
  * @brief panic with a message.
