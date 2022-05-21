@@ -1,4 +1,4 @@
-# TP RIO
+# <img src="assets/logo_bd_chat.png" alt="icon" width="4%"/>TP RIO / BD Chat
 
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps)
 [![GitHub license](https://img.shields.io/github/license/ThomasByr/chat-server)](https://github.com/ThomasByr/chat-server/blob/master/LICENSE)
@@ -16,13 +16,14 @@
 
 **If you ever get this in .7z, .zip, .tar.gz, .rar or whatever archive format, please ensure you do have the latest version by paying a visit to [the home repo](https://github.com/ThomasByr/chat-server) on GitHub !**
 
-1. [✏️ In short](#️-in-short)
-2. [🔰 Prerequisites](#-prerequisites)
-3. [👩‍🏫 Usage](#-usage)
-4. [⚖️ License](#️-license)
-5. [💁 F.A.Q.](#-faq)
-6. [🔄 Changelog](#-changelog)
-7. [🐛 Bugs & TODO](#-bugs--todo)
+1. [<img src="assets/logo_bd_chat.png" alt="icon" width="4%"/>TP RIO / BD Chat](#tp-rio--bd-chat)
+   1. [✏️ In short](#️-in-short)
+   2. [🔰 Prerequisites](#-prerequisites)
+   3. [👩‍🏫 Usage](#-usage)
+   4. [⚖️ License](#️-license)
+   5. [💁 F.A.Q.](#-faq)
+   6. [🔄 Changelog](#-changelog)
+   7. [🐛 Bugs & TODO](#-bugs--todo)
 
 ## ✏️ In short
 
@@ -94,11 +95,13 @@ POSSIBILITY OF SUCH DAMAGE.
 Please refer to the [changelog.md](changelog.md) file for the full history.
 
 <details>
-    <summary>  First release (click here to expand) </summary>
+    <summary>  Begining of the project (click here to expand) </summary>
 
-**v0.1.0** this shit is dope
+**v0.1.1**
 
-- git init
+- add a logo / new name for the project
+- think about the communication between cleint and server
+- add first features for the server and client
 
 </details>
 

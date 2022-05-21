@@ -163,18 +163,50 @@ client_arg_t server_exchange(char *name_to_send) {
 int client(void) {
     // Create thread to wait for messages
     pthread_t thread;
-    pthread_create(&thread, NULL, waiting_for_msg, NULL);
+    T_CHK(pthread_create(&thread, NULL, waiting_for_msg, NULL));
 
-    // TODO: Need a thread to communiocate with the server before sending the
-    // TODO: msg to the other client
+    // print the menu
+    for (;;) {
+    menu:;
+        printf("What do you want to do?\n");
+        printf("1. List the names of the clients\n");
+        printf("2. Send a message to a client\n");
+        printf("3. Exit\n");
+        printf("Your choice (1 or 2 or 3): ");
 
-    // Create thread to send messages
-    pthread_t thread2;
-    pthread_create(&thread2, NULL, send_to_client, NULL);
+        // Get the choice
+        int choice;
+        scanf("%d", &choice);
+        switch (choice) {
+        case 1:
+            // TODO: Answer the server the name of all the connected clients
+            // TODO: Print the names of the clients
+            break;
+        case 2:
+            char name_to_send[BUFLEN];
+            printf("Enter the name of the client to send a message to: ");
+            scanf("%s", name_to_send);
 
+            // TODO: Send the name of the client to the server to get the
+            // TODO: address
+
+            // Get the message to send
+            char msg[BUFLEN];
+            printf("Enter the message to send: ");
+            scanf("%s", msg);
+
+            // TODO: Send a message to a client with the address
+            break;
+        case 3:
+            T_CHK(pthread_cancel(thread));
+            exit(EXIT_SUCCESS);
+        default:
+            printf("Wrong choice\n");
+            break;
+        }
+    }
     // Wait for the threads to finish
-    pthread_join(thread, NULL);
-    pthread_join(thread2, NULL);
+    T_CHK(pthread_join(thread, NULL));
 
-    return 0;
+    exit(EXIT_SUCCESS);
 }
