@@ -83,7 +83,7 @@ static server_t *init_server(char *port) {
     return srv;
 }
 
-static void run_server(server_t *srv, int *cpt) {
+void *run_server(server_t *srv) {
     for (;;) {
         int s;
 
@@ -117,7 +117,6 @@ static void run_server(server_t *srv, int *cpt) {
                 char buf[BUFSIZ];
 
                 setlinebuf(sfp);
-                (*cpt)++;
                 while (fgets(buf, sizeof(buf), sfp) != NULL) {
                     info(1, "client: %s\n", buf);
                     fprintf(sfp, "get %zd chars\n", strlen(buf));
@@ -131,6 +130,7 @@ static void run_server(server_t *srv, int *cpt) {
             }
         }
     }
+    return NULL;
 }
 
 static void done_server(server_t *srv) {
@@ -160,6 +160,18 @@ void *main_server(void *arg) {
     }
 
     debug(1, "server started\n");
-    run_server(srv, targ->cpt);
+
+    // launch thread to handle client requests
+    pthread_t tid[2];
+    for (int i = 0; i < 2; i++) {
+        T_CHK(
+            pthread_create(&tid[i], NULL, (void *(*)(void *))run_server, srv));
+    }
+
+    // wait for thread
+    for (int i = 0; i < 2; i++) {
+        T_CHK(pthread_join(tid[i], NULL));
+    }
+
     return NULL;
 }

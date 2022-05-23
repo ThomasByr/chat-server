@@ -55,16 +55,7 @@ int main(int argc, char *argv[]) {
     thread_arg.port = args.port;
     thread_arg.cpt = &cpt;
 
-    // Launch threads
-    int server_need = 1;
-    for (;;) {
-        if (abs(server_need - cpt) >= 2) {
-            sleep(1);
-            continue;
-        }
-        server_need++;
-        pthread_t thread_server;
-        // TODO: increse port for next thread
-        pthread_create(&thread_server, NULL, main_server, &thread_arg);
-    }
+    main_server(&thread_arg);
+
+    exit(EXIT_SUCCESS);
 }
