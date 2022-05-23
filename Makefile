@@ -34,6 +34,12 @@ run-server: debug-server
 run-client: debug-client
 	./bin/client -p 36000 -t 127.0.0.1
 
+run-server-rpi: debug-server
+	./bin/server -p 32100
+
+run-client-rpi: debug-client
+	./bin/client -p 32100 -t 88.170.206.241
+
 $(BINDIR)/$(TARGET0): $(filter-out $(OBJDIR)/main-server.o,$(OBJECTS))
 	mkdir -p $(BINDIR)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDLIBS)
