@@ -1,7 +1,7 @@
 CC = gcc
 
 CFLAGS = -march=native -pipe -std=gnu17 -pedantic -Wall -Wextra -Werror
-LDLIBS = -lm -pthread
+LDLIBS = -lm -pthread -lreadline
 
 INCLUDE_PATH = ./inc
 

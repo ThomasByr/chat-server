@@ -14,9 +14,9 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <pthread.h>
-#include <readline/history.h>
 #include <readline/readline.h>
 #include <semaphore.h>
+#include <setjmp.h>
 #include <signal.h>
 #include <stdarg.h>
 #include <stdbool.h>

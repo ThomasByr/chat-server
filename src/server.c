@@ -32,7 +32,7 @@ static server_t *init_server(char *port) {
     struct servent *sport;
     // char *ep;
     extern const struct in6_addr in6addr_any;
-    struct sockaddr_storate sa;
+    struct sockaddr_storage sa;
     int sopt = 0;
     extern int errno;
 
@@ -51,7 +51,7 @@ static server_t *init_server(char *port) {
         srv->port_number = sport->s_port;
     }
 
-    (void)memset(&sa, 0, sizeof(struct sockaddr_storate));
+    (void)memset(&sa, 0, sizeof(sa));
     if ((srv->sock = socket(AF_INET6, SOCK_STREAM, pp->p_proto)) < 0) {
         if (errno == EAFNOSUPPORT) {
             if ((srv->sock = socket(AF_INET, SOCK_STREAM, pp->p_proto)) < 0) {
@@ -141,10 +141,10 @@ static void done_server(server_t *srv) {
 }
 
 static jmp_buf sigenv;
-static void on_signal(int sig) { longjmp(sigenv, 1); }
+static void on_signal(int sig) { longjmp(sigenv, sig); }
 
 static void usage(void) {
-    (void)fprintf(stderr, "usage: ./server\n");
+    (void)fprintf(stderr, "usage: ./server [-p PORT]\n");
     exit(EXIT_SUCCESS);
 }
 
@@ -153,7 +153,7 @@ int main_server(int argc, char *argv[]) {
     char *port = DEF_PORT;
     int c;
 
-    while ((c = getopt(argc, argv, "p:")) != -EOF) {
+    while ((c = getopt(argc, argv, "p:")) != EOF) {
         switch (c) {
         case 'p':
             port = optarg;

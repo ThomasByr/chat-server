@@ -66,7 +66,7 @@ static void run_client(int sockfd) {
     setlinebuf(fp);
 
     // Read the message
-    while ((input == get_line("> ") == NULL) && (strcmp(input, ".") != 0)) {
+    while (((input = get_line("> ")) != NULL) && (strcmp(input, ".") != 0)) {
         char buf[BUFSIZ];
 
         // Write the message to the socket
@@ -100,8 +100,6 @@ int main_client(int argc, char *argv[]) {
     char *host = NULL;
     char *port = DEF_PORT;
     int sockfd;
-
-    prog = strrchr(argv[0], '/') ? strrchr(argv[0], '/') + 1 : argv[0];
 
     while ((c = getopt(argc, argv, "hp:")) != EOF) {
         switch (c) {

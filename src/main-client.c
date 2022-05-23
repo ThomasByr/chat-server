@@ -39,14 +39,16 @@
 
 #include "lib.h"
 
+#include "client.h"
+
 #include "io.h"
 
 int main(int argc, char *argv[]) {
-    struct io_args args;
-    io_args_init(&args);
+    // struct io_args args;
+    // io_args_init(&args);
 
-    read_io_args(&args, argc, argv);
-    check_io_args(&args);
+    // read_io_args(&args, argc, argv);
+    // check_io_args(&args);
 
-    return EXIT_SUCCESS;
+    return main_client(argc, argv);
 }
