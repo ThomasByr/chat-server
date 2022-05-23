@@ -109,7 +109,7 @@ static void run_server(server_t *srv) {
             }
             debug(1, "accepted connection from %s:%s\n", host, service);
 
-            if ((sfp = fdopen(s, "r+")) == NULL) {
+            if ((sfp = fdopen(s, "w+")) == NULL) {
                 debug(1, "fdopen\n");
                 close(s);
                 continue;
@@ -119,7 +119,7 @@ static void run_server(server_t *srv) {
                 setlinebuf(sfp);
                 while (fgets(buf, sizeof(buf), sfp) != NULL) {
                     info(1, "client: %s\n", buf);
-                    info(0, "\tgot %zd chars\n", strlen(buf));
+                    fprintf(sfp, "get %zd chars\n", strlen(buf));
                 }
                 debug(1, "client closed connection\n");
 

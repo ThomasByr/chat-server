@@ -60,7 +60,7 @@ static void run_client(int sockfd) {
     char *input;
 
     // Create a buffer for the socket
-    if ((fp = fdopen(sockfd, "r+")) == NULL) {
+    if ((fp = fdopen(sockfd, "w+")) == NULL) {
         panic(0, "fdopen");
     }
     setlinebuf(fp);
