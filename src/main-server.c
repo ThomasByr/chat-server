@@ -45,10 +45,26 @@
 
 int main(int argc, char *argv[]) {
     struct io_args args;
+    int cpt = 0;
     io_args_init(&args);
 
     read_io_args(&args, argc, argv);
     check_io_args(&args);
 
-    return main_server(args.port);
+    thread_arg_t thread_arg;
+    thread_arg.port = args.port;
+    thread_arg.cpt = &cpt;
+
+    // Launch threads
+    int server_need = 1;
+    for (;;) {
+        if (abs(server_need - cpt) >= 2) {
+            sleep(1);
+            continue;
+        }
+        server_need++;
+        pthread_t thread_server;
+        // TODO: increse port for next thread
+        pthread_create(&thread_server, NULL, main_server, &thread_arg);
+    }
 }

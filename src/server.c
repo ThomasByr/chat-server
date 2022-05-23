@@ -83,7 +83,7 @@ static server_t *init_server(char *port) {
     return srv;
 }
 
-static void run_server(server_t *srv) {
+static void run_server(server_t *srv, int *cpt) {
     for (;;) {
         int s;
 
@@ -117,6 +117,7 @@ static void run_server(server_t *srv) {
                 char buf[BUFSIZ];
 
                 setlinebuf(sfp);
+                (*cpt)++;
                 while (fgets(buf, sizeof(buf), sfp) != NULL) {
                     info(1, "client: %s\n", buf);
                     fprintf(sfp, "get %zd chars\n", strlen(buf));
@@ -143,14 +144,15 @@ static void done_server(server_t *srv) {
 static jmp_buf sigenv;
 static void on_signal(int sig) { longjmp(sigenv, sig); }
 
-int main_server(char *port) {
+void *main_server(void *arg) {
+    thread_arg_t *targ = (thread_arg_t *)arg;
     server_t *srv;
 
-    srv = init_server(port);
+    srv = init_server(targ->port);
 
     if (setjmp(sigenv) > 0) {
         done_server(srv);
-        return EXIT_SUCCESS;
+        return NULL;
     } else {
         signal(SIGHUP, on_signal);
         signal(SIGINT, on_signal);
@@ -158,6 +160,6 @@ int main_server(char *port) {
     }
 
     debug(1, "server started\n");
-    run_server(srv);
-    return EXIT_SUCCESS;
+    run_server(srv, targ->cpt);
+    return NULL;
 }
