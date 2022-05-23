@@ -16,20 +16,23 @@
 
 **If you ever get this in .7z, .zip, .tar.gz, .rar or whatever archive format, please ensure you do have the latest version by paying a visit to [the home repo](https://github.com/ThomasByr/chat-server) on GitHub !**
 
-1. [<img src="assets/logo_bd_chat.png" alt="icon" width="4%"/>TP RIO / BD Chat](#tp-rio--bd-chat)
-   1. [✏️ In short](#️-in-short)
-   2. [🔰 Prerequisites](#-prerequisites)
-   3. [👩‍🏫 Usage](#-usage)
-   4. [⚖️ License](#️-license)
-   5. [💁 F.A.Q.](#-faq)
-   6. [🔄 Changelog](#-changelog)
-   7. [🐛 Bugs & TODO](#-bugs--todo)
+1. [✏️ In short](#️-in-short)
+2. [🔰 Prerequisites](#-prerequisites)
+3. [👩‍🏫 Usage](#-usage)
+4. [⚖️ License](#️-license)
+5. [💁 F.A.Q.](#-faq)
+6. [🔄 Changelog](#-changelog)
+7. [🐛 Bugs & TODO](#-bugs--todo)
 
 ## ✏️ In short
 
 ## 🔰 Prerequisites
 
-This project currently suppose you do run a recent enough version of Linux with `pthread` up and ready.
+This project currently suppose you do run a recent enough version of Linux with `pthread` and `libreadline-dev` up and ready.
+
+```bash
+sudo apt -y install < requirements
+```
 
 Here you can find the code standard used during dev. The compatibility version corresponds to the minimum version in which the program is guaranteed (the real min version could be much lower) to perform as originally intended regarding the terms and conditions mentioned in [LICENSE](LICENSE) and the [main](src/main.c) source file.
 
