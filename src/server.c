@@ -1,10 +1,9 @@
 #include "server.h"
 
 struct server_s {
-    int sock;
+    int sock, port_number, id;
     char *port_name;
-    int port_number;
-    FILE *ferr;
+    FILE *fds[10];
 };
 typedef struct server_s server_t;
 
@@ -14,7 +13,6 @@ static server_t *new_server(void) {
     if ((srv = (server_t *)calloc(1, sizeof(server_t))) == NULL) {
         panic(1, "calloc");
     }
-    srv->ferr = stderr;
     return srv;
 }
 
@@ -114,14 +112,24 @@ void *run_server(server_t *srv) {
                 close(s);
                 continue;
             } else {
+                srv->fds[srv->id] = sfp;
                 char buf[BUFSIZ];
 
                 setlinebuf(sfp);
                 while (fgets(buf, sizeof(buf), sfp) != NULL) {
+                    trim(buf);
                     info(1, "client: %s\n", buf);
-                    fprintf(sfp, "get %zd chars\n", strlen(buf));
+                    // fprintf(sfp, "get %zd chars\n", strlen(buf));
+                    for (int i = 0; i < 10; i++) {
+                        // Write to all the connected clients
+                        if (i != srv->id && srv->fds[i]) {
+                            fprintf(srv->fds[i], "%s", buf);
+                        } else if (srv->id == i) {
+                            fprintf(srv->fds[i], "ACK\n");
+                        }
+                    }
                 }
-                debug(1, "client closed connection\n");
+                debug(1, "client %s:%s closed connection\n", host, service);
 
                 if (shutdown(s, SHUT_RDWR) != 0) {
                     debug(1, "shutdown\n");
@@ -159,17 +167,24 @@ void *main_server(void *arg) {
         signal(SIGTERM, on_signal);
     }
 
-    debug(1, "server started\n");
+    debug(1, "server started, listning on port %s\n", targ->port);
 
     // launch thread to handle client requests
-    pthread_t tid[2];
-    for (int i = 0; i < 2; i++) {
+    pthread_t tid[10];
+
+    // Init file descriptors
+    for (int i = 0; i < 10; i++) {
+        srv->fds[i] = NULL;
+    }
+
+    for (int i = 0; i < 10; i++) {
+        srv->id = i;
         T_CHK(
             pthread_create(&tid[i], NULL, (void *(*)(void *))run_server, srv));
     }
 
     // wait for thread
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 10; i++) {
         T_CHK(pthread_join(tid[i], NULL));
     }
 

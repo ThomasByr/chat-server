@@ -66,7 +66,7 @@ static void run_client(int sockfd) {
     setlinebuf(fp);
 
     // Read the message
-    while (((input = get_line("> ")) != NULL) && (strcmp(input, ".") != 0)) {
+    while (((input = get_line("$ ")) != NULL) && (strcmp(input, ".") != 0)) {
         char buf[BUFSIZ];
 
         // Write the message to the socket
@@ -79,7 +79,8 @@ static void run_client(int sockfd) {
             break;
         } else {
             // Print response
-            info(1, "Response: %s", buf);
+            trim(buf);
+            info(1, "Response: %s\n", buf);
         }
     }
 }
