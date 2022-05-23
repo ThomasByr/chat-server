@@ -82,7 +82,7 @@
 #define BG_CYN2 "\x1b[46m"
 #define BG_WHT "\x1b[47m"
 
-#define BUFFSIZE 1 << 12
+#define BUFFSIZE 1 << 10
 #define STR_LEN_MAX 32
 #define NB_CLIENTS 10
 
