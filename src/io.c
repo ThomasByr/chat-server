@@ -4,6 +4,8 @@ void io_args_init(struct io_args *args) {
     args->get_help = false;
     args->get_version = false;
     args->get_license = false;
+    args->port = NULL;
+    args->target = NULL;
 }
 
 void read_io_args(struct io_args *args, int argc, char **argv) {

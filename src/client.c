@@ -90,39 +90,10 @@ static void done_client(int sockfd) {
     }
 }
 
-static void usage_client(void) {
-    printf("Usage: ./client [-p PORT] host\n");
-    exit(EXIT_SUCCESS);
-}
-
-int main_client(int argc, char *argv[]) {
-    int c;
-    char *host = NULL;
-    char *port = DEF_PORT;
+int main_client(char *port, char *target) {
     int sockfd;
 
-    while ((c = getopt(argc, argv, "hp:")) != EOF) {
-        switch (c) {
-        case 'p':
-            port = optarg;
-            break;
-        case 'h':
-        default:
-            usage_client();
-        }
-    }
-
-    if (optind < argc) {
-        host = argv[optind++];
-        if (optind != argc) {
-            usage_client();
-        }
-    } else {
-        info(0, "hostname not specified");
-        usage_client();
-    }
-
-    sockfd = init_client(host, port);
+    sockfd = init_client(target, port);
     run_client(sockfd);
     done_client(sockfd);
 

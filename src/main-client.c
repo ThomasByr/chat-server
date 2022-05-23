@@ -44,11 +44,11 @@
 #include "io.h"
 
 int main(int argc, char *argv[]) {
-    // struct io_args args;
-    // io_args_init(&args);
+    struct io_args args;
+    io_args_init(&args);
 
-    // read_io_args(&args, argc, argv);
-    // check_io_args(&args);
+    read_io_args(&args, argc, argv);
+    check_io_args(&args);
 
-    return main_client(argc, argv);
+    return main_client(args.port, args.target);
 }

@@ -8,4 +8,4 @@
  * @param argv the arguments
  * @return the exit code
  */
-int main_client(int argc, char *argv[]);
+int main_client(char *port, char *target);

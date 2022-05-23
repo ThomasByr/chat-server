@@ -143,25 +143,8 @@ static void done_server(server_t *srv) {
 static jmp_buf sigenv;
 static void on_signal(int sig) { longjmp(sigenv, sig); }
 
-static void usage(void) {
-    (void)fprintf(stderr, "usage: ./server [-p PORT]\n");
-    exit(EXIT_SUCCESS);
-}
-
-int main_server(int argc, char *argv[]) {
+int main_server(char *port) {
     server_t *srv;
-    char *port = DEF_PORT;
-    int c;
-
-    while ((c = getopt(argc, argv, "p:")) != EOF) {
-        switch (c) {
-        case 'p':
-            port = optarg;
-            break;
-        default:
-            usage();
-        }
-    }
 
     srv = init_server(port);
 
