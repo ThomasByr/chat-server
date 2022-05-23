@@ -1,6 +1,15 @@
 #include "client.h"
 
 /**
+ * @brief Structure for the reciving thread
+ */
+struct rcv_thread_s {
+    FILE *fd;
+    sem_t *sem_rw;
+};
+typedef struct rcv_thread_s rcv_thread_t;
+
+/**
  * @brief Function to get the line from stdin
  * @param prompt the prompt to print
  * @return the line read
@@ -68,20 +77,25 @@ static int init_client(char *host, char *port) {
 
 /**
  * @brief Function to receive a message from the server using a thread
- * @param arg the argument to pass to the thread (here the descriptor to listen
- * to)
+ * @param arg the argument to pass to the thread (here rcv_thread_t)
  */
 void *receive_message(void *arg) {
-    FILE *fd = (FILE *)arg;
+    rcv_thread_t *rcv_thread = (rcv_thread_t *)arg;
+    FILE *fd = rcv_thread->fd;
+    sem_t *sem_rw = rcv_thread->sem_rw;
 
     // Duplicate file descriptor
     int fd_dup = dup(fileno(fd));
 
     frame_t frame;
     debug(1, "Ready to receive message\n");
+    T_CHK(sem_post(sem_rw));
     while (read(fd_dup, &frame, sizeof(frame_t)) > 0) {
-        // trim(frame.msg);
+        trim(frame.msg);
+        trim(frame.name_id);
+        CHK(write(STDOUT_FILENO, "\033[2k\r", 5));
         info(1, "[%s]: %s\n", frame.name_id, frame.msg);
+        info(0, FG_RED "$ " RST);
     }
     debug(1, "Connection closed\n");
     return NULL;
@@ -94,6 +108,9 @@ void *receive_message(void *arg) {
 static void run_client(int sockfd, frame_t *frame) {
     FILE *fp;
     char *input;
+    sem_t sem_rw; // Semaphore to sync read/write threads
+
+    T_CHK(sem_init(&sem_rw, 0, 0));
 
     // Create a buffer for the socket
     if ((fp = fdopen(sockfd, "w+")) == NULL) {
@@ -103,13 +120,19 @@ static void run_client(int sockfd, frame_t *frame) {
 
     // Create a thread to receive messages
     pthread_t tid;
-    T_CHK(pthread_create(&tid, NULL, receive_message, fp));
+    rcv_thread_t rcv_thread = {.fd = fp, .sem_rw = &sem_rw};
+    T_CHK(pthread_create(&tid, NULL, receive_message, &rcv_thread));
+
+    T_CHK(sem_wait(&sem_rw));
 
     // Read the message
-    while (((input = get_line("$ ")) != NULL) && (strcmp(input, ".") != 0)) {
+    while (((input = get_line(FG_RED "$ " RST)) != NULL) &&
+           (strcmp(input, ".") != 0)) {
         // Write the message to the socket
         debug(1, "Sending: %s\n", input);
-        strlcpy(frame->msg, input, BUFSIZ);
+        strlcpy(frame->msg, input, BUFFSIZE);
+        trim(frame->msg);
+        trim(frame->name_id);
         CHK(write(fileno(fp), frame, sizeof(frame_t)));
         debug(1, "Sent\n");
         free(input);

@@ -28,6 +28,12 @@ debug-server: CFLAGS += -Og -DDEBUG -g -ggdb
 debug-server: $(BINDIR)/$(TARGET1)
 	@echo "\033[93mRunning server in debug mode!\033[0m"
 
+run-server: debug-server
+	./bin/server -p 36000
+
+run-client: debug-client
+	./bin/client -p 36000 -t 127.0.0.1
+
 $(BINDIR)/$(TARGET0): $(filter-out $(OBJDIR)/main-server.o,$(OBJECTS))
 	mkdir -p $(BINDIR)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDLIBS)

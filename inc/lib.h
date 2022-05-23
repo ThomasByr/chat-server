@@ -82,6 +82,7 @@
 #define BG_CYN2 "\x1b[46m"
 #define BG_WHT "\x1b[47m"
 
+#define BUFFSIZE 1 << 12
 #define STR_LEN_MAX 32
 #define NB_CLIENTS 10
 
@@ -97,7 +98,7 @@ typedef void(delete_callback_t)(void *);
 typedef void(print_callback_t)(void *);
 
 typedef struct frame_s {
-    char msg[BUFSIZ];
+    char msg[BUFFSIZE];
     char name_id[STR_LEN_MAX];
 } frame_t;
 

@@ -59,7 +59,7 @@ void info(int first, const char *restrict fmt, ...) {
 
     va_start(ap, fmt);
     if (first) {
-        fprintf(stdout, FG_BLU "\n   INFO: " RST);
+        fprintf(stdout, FG_BLU "   INFO: " RST);
     }
     vfprintf(stdout, fmt, ap);
     va_end(ap);

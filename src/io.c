@@ -10,7 +10,7 @@ void io_args_init(struct io_args *args) {
 
 void read_io_args(struct io_args *args, int argc, char **argv) {
     int opt;
-    char bad[BUFSIZ] = {0};
+    char bad[BUFFSIZE] = {0};
 
     const struct option long_options[] = {
         {"help", no_argument, NULL, 'h'},
@@ -41,7 +41,7 @@ void read_io_args(struct io_args *args, int argc, char **argv) {
             break;
 
         default:
-            snprintf_s(bad, BUFSIZ, "%s", argv[optind - 1]);
+            snprintf_s(bad, BUFFSIZE, "%s", argv[optind - 1]);
             get_help(bad);
             panic(0, "unreachable");
             break;
@@ -90,8 +90,8 @@ noreturn void get_help(char *restrict s) {
 }
 
 noreturn void get_version(void) {
-    char v[BUFSIZ] = {0};
-    snprintf_s(v, BUFSIZ, "%d.%d.%d", __VERSION_MAJOR__, __VERSION_MINOR__,
+    char v[BUFFSIZE] = {0};
+    snprintf_s(v, BUFFSIZE, "%d.%d.%d", __VERSION_MAJOR__, __VERSION_MINOR__,
                __VERSION_PATCH__);
 
     fprintf(stdout, "chat-server\nauthors: %s\n", __AUTHOR__);
