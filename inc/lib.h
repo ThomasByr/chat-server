@@ -83,7 +83,7 @@
 #define BG_WHT "\x1b[47m"
 
 #define STR_LEN_MAX 32
-#define NB_CLIENTS 100
+#define NB_CLIENTS 10
 
 #ifndef DEBUG
 #define ASSERT(x) (void)(x)
