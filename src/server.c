@@ -1,13 +1,20 @@
 #include "server.h"
 
+/**
+ * @brief structure to give to the thread
+ */
 struct server_s {
     int sock, port_number, id;
     char *port_name;
-    FILE *fds[10];
+    FILE *fds[NB_CLIENTS];
     sem_t sem;
 };
 typedef struct server_s server_t;
 
+/**
+ * @brief Function to create and allocate the server structure
+ * @return server_t* the server infos
+ */
 static server_t *new_server(void) {
     server_t *srv;
 
@@ -17,6 +24,10 @@ static server_t *new_server(void) {
     return srv;
 }
 
+/**
+ * @brief Function to close the server
+ * @param srv the server infos
+ */
 static void free_server(server_t *srv) {
     if (srv->port_name) {
         free(srv->port_name);
@@ -24,6 +35,11 @@ static void free_server(server_t *srv) {
     free(srv);
 }
 
+/**
+ * @brief Function to initialize the server
+ * @param port the port to listen on
+ * @return server_t* the server infos
+ */
 static server_t *init_server(char *port) {
     server_t *srv;
     char *protocol = "tcp";
@@ -82,6 +98,10 @@ static server_t *init_server(char *port) {
     return srv;
 }
 
+/**
+ * @brief Function to accept a client
+ * @param srv the server infos
+ */
 void *run_server(server_t *srv) {
     int id = srv->id;
     T_CHK(sem_post(&srv->sem));
@@ -123,13 +143,11 @@ void *run_server(server_t *srv) {
                     trim(buf);
                     info(1, "client: %s\n", buf);
                     // fprintf(sfp, "get %zd chars\n", strlen(buf));
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < NB_CLIENTS; i++) {
                         debug(1, "fds[%d] = %p\n", i, srv->fds[i]);
                         // Write to all the connected clients
                         if (i != id && srv->fds[i]) {
                             fprintf(srv->fds[i], "%s\n", buf);
-                        } else if (id == i) {
-                            fprintf(sfp, "ACK\n");
                         }
                     }
                 }
@@ -146,6 +164,10 @@ void *run_server(server_t *srv) {
     return NULL;
 }
 
+/**
+ * @brief Function to terminate the server
+ * @param srv the server infos
+ */
 static void done_server(server_t *srv) {
     if (close(srv->sock) != 0) {
         panic(1, "close");
@@ -157,6 +179,10 @@ static void done_server(server_t *srv) {
 static jmp_buf sigenv;
 static void on_signal(int sig) { longjmp(sigenv, sig); }
 
+/**
+ * @brief Main function of the server
+ * @param arg the thread arguments (here thread_arg_t*)
+ */
 void *main_server(void *arg) {
     thread_arg_t *targ = (thread_arg_t *)arg;
     server_t *srv;
@@ -175,25 +201,25 @@ void *main_server(void *arg) {
     debug(1, "server started, listning on port %s\n", targ->port);
 
     // launch thread to handle client requests
-    pthread_t tid[10];
+    pthread_t tid[NB_CLIENTS];
 
     // Init file descriptors
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < NB_CLIENTS; i++) {
         srv->fds[i] = NULL;
     }
 
-    // Init sem to get id
+    // Init sem to get id for thread
     T_CHK(sem_init(&srv->sem, 0, 1));
 
-    for (int k = 0; k < 10; k++) {
+    for (int k = 0; k < NB_CLIENTS; k++) {
         T_CHK(sem_wait(&srv->sem));
         srv->id = k;
         T_CHK(
             pthread_create(&tid[k], NULL, (void *(*)(void *))run_server, srv));
     }
 
-    // wait for thread
-    for (int i = 0; i < 10; i++) {
+    // wait for thread to finish
+    for (int i = 0; i < NB_CLIENTS; i++) {
         T_CHK(pthread_join(tid[i], NULL));
     }
 

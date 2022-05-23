@@ -86,6 +86,7 @@
 #define DEF_PORT "9000"
 #define TIMEOUT 3600
 #define STR_LEN_MAX 32
+#define NB_CLIENTS 100
 
 #ifndef DEBUG
 #define ASSERT(x) (void)(x)

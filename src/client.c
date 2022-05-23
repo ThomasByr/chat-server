@@ -1,7 +1,18 @@
 #include "client.h"
 
+/**
+ * @brief Function to get the line from stdin
+ * @param prompt the prompt to print
+ * @return the line read
+ */
 static char *get_line(char *prompt) { return readline(prompt); }
 
+/**
+ * @brief Function to init the client
+ * @param port the port to connect to
+ * @param host the host to connect to
+ * @return error code
+ */
 static int init_client(char *host, char *port) {
     struct addrinfo hints, *res, *rp;
     int s;
@@ -55,6 +66,11 @@ static int init_client(char *host, char *port) {
     panic(0, "Could not connect to %s", host);
 }
 
+/**
+ * @brief Function to receive a message from the server using a thread
+ * @param arg the argument to pass to the thread (here the descriptor to listen
+ * to)
+ */
 void *receive_message(void *arg) {
     FILE *fd = (FILE *)arg;
 
@@ -72,6 +88,10 @@ void *receive_message(void *arg) {
     return NULL;
 }
 
+/**
+ * @brief Function to send a message to the server
+ * @param sockfd the socket to send the message to
+ */
 static void run_client(int sockfd) {
     FILE *fp;
     char *input;
@@ -103,12 +123,21 @@ static void run_client(int sockfd) {
     T_CHK(pthread_join(tid, NULL));
 }
 
+/**
+ * @brief Function to terminate the client
+ * @param sockfd the socket to close
+ */
 static void done_client(int sockfd) {
     if (close(sockfd) == -1) {
         panic(0, "close");
     }
 }
 
+/**
+ * @brief Main function of the client
+ * @param port the port to connect to
+ * @param target the host to connect to
+ */
 int main_client(char *port, char *target) {
     int sockfd;
 
