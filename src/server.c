@@ -4,6 +4,7 @@ struct server_s {
     int sock, port_number, id;
     char *port_name;
     FILE *fds[10];
+    sem_t sem;
 };
 typedef struct server_s server_t;
 
@@ -82,6 +83,8 @@ static server_t *init_server(char *port) {
 }
 
 void *run_server(server_t *srv) {
+    int id = srv->id;
+    T_CHK(sem_post(&srv->sem));
     for (;;) {
         int s;
 
@@ -112,23 +115,25 @@ void *run_server(server_t *srv) {
                 close(s);
                 continue;
             } else {
-                srv->fds[srv->id] = sfp;
+                srv->fds[id] = sfp;
                 char buf[BUFSIZ];
 
                 setlinebuf(sfp);
-                while (fgets(buf, sizeof(buf), sfp) != NULL) {
+                while (read(fileno(sfp), buf, sizeof(buf)) > 0) {
                     trim(buf);
                     info(1, "client: %s\n", buf);
                     // fprintf(sfp, "get %zd chars\n", strlen(buf));
                     for (int i = 0; i < 10; i++) {
+                        debug(1, "fds[%d] = %p\n", i, srv->fds[i]);
                         // Write to all the connected clients
-                        if (i != srv->id && srv->fds[i]) {
-                            fprintf(srv->fds[i], "%s", buf);
-                        } else if (srv->id == i) {
-                            fprintf(srv->fds[i], "ACK\n");
+                        if (i != id && srv->fds[i]) {
+                            fprintf(srv->fds[i], "%s\n", buf);
+                        } else if (id == i) {
+                            fprintf(sfp, "ACK\n");
                         }
                     }
                 }
+                srv->fds[id] = NULL;
                 debug(1, "client %s:%s closed connection\n", host, service);
 
                 if (shutdown(s, SHUT_RDWR) != 0) {
@@ -177,10 +182,14 @@ void *main_server(void *arg) {
         srv->fds[i] = NULL;
     }
 
-    for (int i = 0; i < 10; i++) {
-        srv->id = i;
+    // Init sem to get id
+    T_CHK(sem_init(&srv->sem, 0, 1));
+
+    for (int k = 0; k < 10; k++) {
+        T_CHK(sem_wait(&srv->sem));
+        srv->id = k;
         T_CHK(
-            pthread_create(&tid[i], NULL, (void *(*)(void *))run_server, srv));
+            pthread_create(&tid[k], NULL, (void *(*)(void *))run_server, srv));
     }
 
     // wait for thread

@@ -55,6 +55,23 @@ static int init_client(char *host, char *port) {
     panic(0, "Could not connect to %s", host);
 }
 
+void *receive_message(void *arg) {
+    FILE *fd = (FILE *)arg;
+
+    // Duplicate file descriptor
+    int fd_dup = dup(fileno(fd));
+
+    char buf[BUFSIZ];
+    debug(1, "Ready to receive message\n");
+    while (read(fd_dup, buf, BUFSIZ) > 0) {
+        trim(buf);
+        info(1, "Received: %s\n", buf);
+        memset(buf, 0, BUFSIZ);
+    }
+    debug(1, "Connection closed\n");
+    return NULL;
+}
+
 static void run_client(int sockfd) {
     FILE *fp;
     char *input;
@@ -65,24 +82,25 @@ static void run_client(int sockfd) {
     }
     setlinebuf(fp);
 
+    // Create a thread to receive messages
+    pthread_t tid;
+    T_CHK(pthread_create(&tid, NULL, receive_message, fp));
+
     // Read the message
     while (((input = get_line("$ ")) != NULL) && (strcmp(input, ".") != 0)) {
-        char buf[BUFSIZ];
-
         // Write the message to the socket
+        debug(1, "Sending: %s\n", input);
         fprintf(fp, "%s\n", input);
+        fflush(fp);
+        debug(1, "Sent\n");
         free(input);
-
-        // Get response
-        if (fgets(buf, BUFSIZ, fp) == NULL) {
-            info(1, "Connection lost\n");
-            break;
-        } else {
-            // Print response
-            trim(buf);
-            info(1, "Response: %s\n", buf);
-        }
     }
+
+    // Close the socket
+    fclose(fp);
+
+    // Wait for the thread to finish
+    T_CHK(pthread_join(tid, NULL));
 }
 
 static void done_client(int sockfd) {
