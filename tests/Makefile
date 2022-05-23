@@ -1,7 +1,7 @@
 CC = gcc
 
 CFLAGS ?= -march=znver3 -Og -pipe -std=gnu17 -pedantic -fprofile-arcs -ftest-coverage -Wall -Wextra -Werror -DDEBUG -g -ggdb
-LDLIBS ?= -lm -pthread
+LDLIBS ?= -lm -pthread -lreadline
 
 INCLUDE_PATH = ../inc
 
