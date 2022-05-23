@@ -20,6 +20,10 @@ OBJECTS     := $(SOURCES:$(SRCDIR)/%.$(FILEXT)=$(OBJDIR)/%.o)
 
 all: debug-client debug-server
 
+debug: debug-client debug-server
+
+release: release-client release-server
+
 debug-client: CFLAGS += -Og -DDEBUG -g -ggdb
 debug-client: $(BINDIR)/$(TARGET0)
 	@echo "\033[93mRunning client in debug mode!\033[0m"
@@ -28,16 +32,24 @@ debug-server: CFLAGS += -Og -DDEBUG -g -ggdb
 debug-server: $(BINDIR)/$(TARGET1)
 	@echo "\033[93mRunning server in debug mode!\033[0m"
 
+release-client: CFLAGS += -Ofast
+release-client: $(BINDIR)/$(TARGET0)
+	@echo "\033[94mRunning client in release mode!\033[0m"
+
+release-server: CFLAGS += -Ofast
+release-server: $(BINDIR)/$(TARGET1)
+	@echo "\033[94mRunning server in release mode!\033[0m"
+
 run-server: debug-server
 	./bin/server -p 36000
 
 run-client: debug-client
 	./bin/client -p 36000 -t 127.0.0.1
 
-run-server-rpi: debug-server
+run-server-rpi: release-server
 	./bin/server -p 32100
 
-run-client-rpi: debug-client
+run-client-rpi: release-client
 	./bin/client -p 32100 -t 88.170.206.241
 
 $(BINDIR)/$(TARGET0): $(filter-out $(OBJDIR)/main-server.o,$(OBJECTS))
