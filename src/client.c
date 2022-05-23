@@ -77,12 +77,11 @@ void *receive_message(void *arg) {
     // Duplicate file descriptor
     int fd_dup = dup(fileno(fd));
 
-    char buf[BUFSIZ];
+    frame_t frame;
     debug(1, "Ready to receive message\n");
-    while (read(fd_dup, buf, BUFSIZ) > 0) {
-        trim(buf);
-        info(1, "Received: %s\n", buf);
-        memset(buf, 0, BUFSIZ);
+    while (read(fd_dup, &frame, sizeof(frame_t)) > 0) {
+        // trim(frame.msg);
+        info(1, "[%s]: %s\n", frame.name_id, frame.msg);
     }
     debug(1, "Connection closed\n");
     return NULL;
@@ -92,7 +91,7 @@ void *receive_message(void *arg) {
  * @brief Function to send a message to the server
  * @param sockfd the socket to send the message to
  */
-static void run_client(int sockfd) {
+static void run_client(int sockfd, frame_t *frame) {
     FILE *fp;
     char *input;
 
@@ -110,8 +109,8 @@ static void run_client(int sockfd) {
     while (((input = get_line("$ ")) != NULL) && (strcmp(input, ".") != 0)) {
         // Write the message to the socket
         debug(1, "Sending: %s\n", input);
-        fprintf(fp, "%s\n", input);
-        fflush(fp);
+        strlcpy(frame->msg, input, BUFSIZ);
+        CHK(write(fileno(fp), frame, sizeof(frame_t)));
         debug(1, "Sent\n");
         free(input);
     }
@@ -140,9 +139,15 @@ static void done_client(int sockfd) {
  */
 int main_client(char *port, char *target) {
     int sockfd;
+    frame_t frame;
+
+    // Ask user fot username
+    char *username = get_line("Username: ");
+    trim(username);
+    strlcpy(frame.name_id, username, STR_LEN_MAX);
 
     sockfd = init_client(target, port);
-    run_client(sockfd);
+    run_client(sockfd, &frame);
     done_client(sockfd);
 
     exit(EXIT_SUCCESS);

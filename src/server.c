@@ -136,18 +136,20 @@ void *run_server(server_t *srv) {
                 continue;
             } else {
                 srv->fds[id] = sfp;
-                char buf[BUFSIZ];
+                frame_t frame;
 
                 setlinebuf(sfp);
-                while (read(fileno(sfp), buf, sizeof(buf)) > 0) {
-                    trim(buf);
-                    info(1, "client: %s\n", buf);
-                    // fprintf(sfp, "get %zd chars\n", strlen(buf));
+                while (read(fileno(sfp), &frame, sizeof(frame)) > 0) {
+                    trim(frame.msg);
+                    trim(frame.name_id);
+                    info(1, "client: %s\n", frame.name_id);
+                    info(1, "message: %s\n", frame.msg);
                     for (int i = 0; i < NB_CLIENTS; i++) {
                         debug(1, "fds[%d] = %p\n", i, srv->fds[i]);
                         // Write to all the connected clients
                         if (i != id && srv->fds[i]) {
-                            fprintf(srv->fds[i], "%s\n", buf);
+                            CHK(write(fileno(srv->fds[i]), &frame,
+                                      sizeof(frame)));
                         }
                     }
                 }

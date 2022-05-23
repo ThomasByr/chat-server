@@ -82,9 +82,6 @@
 #define BG_CYN2 "\x1b[46m"
 #define BG_WHT "\x1b[47m"
 
-#define BUFLEN 1 << 10
-#define DEF_PORT "9000"
-#define TIMEOUT 3600
 #define STR_LEN_MAX 32
 #define NB_CLIENTS 100
 
@@ -99,10 +96,10 @@ typedef void *(for_each_callback_t)(void *, void *);
 typedef void(delete_callback_t)(void *);
 typedef void(print_callback_t)(void *);
 
-typedef struct client_message_s {
-    char msg[BUFLEN];
+typedef struct frame_s {
+    char msg[BUFSIZ];
     char name_id[STR_LEN_MAX];
-} client_message_t;
+} frame_t;
 
 /**
  * @brief panic with a message.
