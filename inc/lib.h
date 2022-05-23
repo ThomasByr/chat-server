@@ -14,6 +14,8 @@
 #include <netdb.h>
 #include <netinet/in.h>
 #include <pthread.h>
+#include <readline/history.h>
+#include <readline/readline.h>
 #include <semaphore.h>
 #include <signal.h>
 #include <stdarg.h>
@@ -46,16 +48,16 @@
 #define __VERSION_MINOR__ 1
 #define __VERSION_PATCH__ 0
 
-#define CHK(op)                                                                \
-    do {                                                                       \
-        if ((op) == -1)                                                        \
-            panic(1, #op);                                                     \
+#define CHK(op)            \
+    do {                   \
+        if ((op) == -1)    \
+            panic(1, #op); \
     } while (0)
 
-#define T_CHK(op)                                                              \
-    do {                                                                       \
-        if ((errno = (op)) > 0)                                                \
-            panic(1, #op);                                                     \
+#define T_CHK(op)               \
+    do {                        \
+        if ((errno = (op)) > 0) \
+            panic(1, #op);      \
     } while (0)
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
@@ -81,8 +83,7 @@
 #define BG_WHT "\x1b[47m"
 
 #define BUFLEN 1 << 10
-#define IP_ADDR_SERVER "88.170.206.241"
-#define PORT_SERVER 32100
+#define DEF_PORT "9000"
 #define TIMEOUT 3600
 #define STR_LEN_MAX 32
 
