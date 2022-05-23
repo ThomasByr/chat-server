@@ -10,6 +10,9 @@ struct io_args {
     bool get_help;    // -h, --help
     bool get_version; // -v, --version
     bool get_license; // -l, --license
+
+    char *port;   // -p, --port
+    char *target; // -t, --target
 };
 
 /**

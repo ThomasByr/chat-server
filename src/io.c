@@ -14,10 +14,13 @@ void read_io_args(struct io_args *args, int argc, char **argv) {
         {"help", no_argument, NULL, 'h'},
         {"version", no_argument, NULL, 'v'},
         {"license", no_argument, NULL, 'l'},
+        {"port", required_argument, NULL, 'p'},
+        {"target", required_argument, NULL, 't'},
         {NULL, 0, NULL, 0},
     };
 
-    while ((opt = getopt_long(argc, argv, "hvl", long_options, NULL)) != -1) {
+    while ((opt = getopt_long(argc, argv, "hvlp:t:", long_options, NULL)) !=
+           -1) {
         switch (opt) {
         case 'h':
             args->get_help = true;
@@ -27,6 +30,12 @@ void read_io_args(struct io_args *args, int argc, char **argv) {
             break;
         case 'l':
             args->get_license = true;
+            break;
+        case 'p':
+            args->port = optarg;
+            break;
+        case 't':
+            args->target = optarg;
             break;
 
         default:
@@ -69,6 +78,10 @@ noreturn void get_help(char *restrict s) {
     fprintf(stdout, "        print version and exit\n");
     fprintf(stdout, "    -l, --license\n");
     fprintf(stdout, "        print license and exit\n");
+    fprintf(stdout, "    -p, --port\n");
+    fprintf(stdout, "        port to listen on or connect to\n");
+    fprintf(stdout, "    -t, --target\n");
+    fprintf(stdout, "        target to connect to\n");
     fflush(stdout);
 
     exit(status);
