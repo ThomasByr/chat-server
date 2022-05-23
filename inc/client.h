@@ -32,7 +32,7 @@ static void done_client(int sockfd);
 /**
  * @brief Print how to use the client
  */
-static void usage(void);
+static void usage_client(void);
 
 /**
  * @brief The main function of the client

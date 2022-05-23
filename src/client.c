@@ -90,7 +90,7 @@ static void done_client(int sockfd) {
     }
 }
 
-static void usage(void) {
+static void usage_client(void) {
     printf("Usage: ./client [-p PORT] host\n");
     exit(EXIT_SUCCESS);
 }
@@ -110,18 +110,18 @@ int main_client(int argc, char *argv[]) {
             break;
         case 'h':
         default:
-            usage();
+            usage_client();
         }
     }
 
     if (optind < argc) {
         host = argv[optind++];
         if (optind != argc) {
-            usage();
+            usage_client();
         }
     } else {
         info(0, "hostname not specified");
-        usage();
+        usage_client();
     }
 
     sockfd = init_client(host, port);
