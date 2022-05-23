@@ -144,14 +144,24 @@ void *run_server(server_t *srv) {
                     trim(frame.name_id);
                     info(1, "client: %s\n", frame.name_id);
                     info(1, "message: %s\n", frame.msg);
+
+                    int cpt_client = 0;
+
                     for (int i = 0; i < NB_CLIENTS; i++) {
                         debug(1, "fds[%d] = %p\n", i, srv->fds[i]);
                         // Write to all the connected clients
                         if (i != id && srv->fds[i]) {
+                            cpt_client++;
                             CHK(write(fileno(srv->fds[i]), &frame,
                                       sizeof(frame)));
                         }
                     }
+                    frame_t frame_ack;
+                    strlcpy(frame_ack.name_id, "SERVER",
+                            sizeof(frame_ack.name_id));
+                    snprintf_s(frame_ack.msg, sizeof(frame_ack.msg),
+                               "Message sent to %d user(s)", cpt_client);
+                    CHK(write(fileno(sfp), &frame_ack, sizeof(frame_ack)));
                 }
                 srv->fds[id] = NULL;
                 debug(1, "client %s:%s closed connection\n", host, service);
