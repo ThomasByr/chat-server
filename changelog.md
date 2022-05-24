@@ -9,11 +9,19 @@
 **v0.1.0** this shit is dope
 
 - git init
+- dictionnary structure to store key-value pairs
 
-## Begining of the project
+## Beginning
 
-**v0.1.1**
+**v0.1.1** multi chat server
 
 - add a logo / new name for the project
-- think about the communication between cleint and server
+- think about the communication between client and server
 - add first features for the server and client
+
+**v0.1.2** better code basis
+
+- created a [legacy](legacy/) folder for the old code basis
+- use of posix threads
+- use of the readline extern library
+- created rpi targets in the Makefile
