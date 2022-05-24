@@ -18,6 +18,7 @@ typedef struct server_s server_t;
 static server_t *new_server(void) {
     server_t *srv;
 
+    // Allocate memory for the server structure
     if ((srv = (server_t *)calloc(1, sizeof(server_t))) == NULL) {
         panic(1, "calloc");
     }
@@ -42,17 +43,18 @@ static void free_server(server_t *srv) {
  */
 static server_t *init_server(char *port) {
     server_t *srv;
-    char *protocol = "tcp";
-    struct protoent *pp;
-    struct servent *sport;
-    // char *ep;
+    char *protocol = "tcp"; // protocol to use
+    struct protoent *pp;    // protocol info
+    struct servent *sport;  // service info
     extern const struct in6_addr in6addr_any;
     struct sockaddr_storage sa;
     int sopt = 0;
-    extern int errno;
 
     srv = new_server();
     srv->port_name = strdup(port);
+    if (srv->port_name == NULL) {
+        panic(1, "strdup");
+    }
 
     if ((pp = getprotobyname(protocol)) == NULL) {
         panic(1, "getprotobyname");
@@ -68,17 +70,21 @@ static server_t *init_server(char *port) {
 
     (void)memset(&sa, 0, sizeof(sa));
     if ((srv->sock = socket(AF_INET6, SOCK_STREAM, pp->p_proto)) < 0) {
+        // IPv6 not supported
         if (errno == EAFNOSUPPORT) {
             if ((srv->sock = socket(AF_INET, SOCK_STREAM, pp->p_proto)) < 0) {
+                // IPv4 not supported
                 panic(1, "socket");
             }
         } else {
+            // IPv4 supported but IPv6 not supported
             struct sockaddr_in *sa4 = (struct sockaddr_in *)&sa;
             sa4->sin_family = AF_INET;
             sa4->sin_port = srv->port_number;
             sa4->sin_addr.s_addr = INADDR_ANY;
         }
     } else {
+        // IPv6 supported
         struct sockaddr_in6 *sa6 = (struct sockaddr_in6 *)&sa;
         if (setsockopt(srv->sock, IPPROTO_IPV6, IPV6_V6ONLY, &sopt,
                        sizeof(sopt)) < 0) {
@@ -112,27 +118,28 @@ void *run_server(server_t *srv) {
         socklen_t addrlen = sizeof(addr);
         struct sockaddr *sap = (struct sockaddr *)&addr;
 
-        memset(&addr, 0, sizeof(addr));
+        (void)memset(&addr, 0, sizeof(addr));
         if ((s = accept(srv->sock, sap, &addrlen)) >= 0) {
+            // Create a new file descriptor
             char host[NI_MAXHOST];
             char service[NI_MAXSERV];
             FILE *sfp;
 
             if (getpeername(s, sap, &addrlen) != 0) {
                 debug(1, "getpeername\n");
-                close(s);
+                shutdown(s, SHUT_RDWR);
                 continue;
             } else if (getnameinfo(sap, addrlen, host, sizeof(host), service,
                                    sizeof(service), 0) != 0) {
                 debug(1, "getnameinfo\n");
-                close(s);
+                shutdown(s, SHUT_RDWR);
                 continue;
             }
             debug(1, "accepted connection from %s:%s\n", host, service);
 
             if ((sfp = fdopen(s, "w+")) == NULL) {
                 debug(1, "fdopen\n");
-                close(s);
+                shutdown(s, SHUT_RDWR);
                 continue;
             } else {
                 srv->fds[id] = sfp;
@@ -140,6 +147,7 @@ void *run_server(server_t *srv) {
 
                 setlinebuf(sfp);
                 while (read(fileno(sfp), &frame, sizeof(frame)) > 0) {
+                    // While we receive messages
                     trim(frame.msg);
                     trim(frame.name_id);
                     info(1, "client: %s\n", frame.name_id);
@@ -156,6 +164,8 @@ void *run_server(server_t *srv) {
                                       sizeof(frame)));
                         }
                     }
+
+                    // Write to the client itself
                     frame_t frame_ack;
                     strlcpy(frame_ack.name_id, "SERVER",
                             sizeof(frame_ack.name_id));
@@ -166,6 +176,7 @@ void *run_server(server_t *srv) {
                 srv->fds[id] = NULL;
                 debug(1, "client %s:%s closed connection\n", host, service);
 
+                // Properly close the file descriptor
                 if (shutdown(s, SHUT_RDWR) != 0) {
                     debug(1, "shutdown\n");
                     (void)fclose(sfp);
