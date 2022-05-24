@@ -11,7 +11,7 @@
 - git init
 - dictionnary structure to store key-value pairs
 
-## Begining of the project
+## Beginning
 
 **v0.1.1** multi chat server
 
