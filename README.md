@@ -1,4 +1,4 @@
-# <img src="assets/logo_bd_chat.png" alt="icon" width="4%"/>TP RIO / BD Chat
+# <img src="assets/logo_bd_chat.png" alt="icon" width="3%"/>TP RIO / BD Chat
 
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps)
 [![GitHub license](https://img.shields.io/github/license/ThomasByr/chat-server)](https://github.com/ThomasByr/chat-server/blob/master/LICENSE)
@@ -20,11 +20,14 @@
 2. [🔰 Prerequisites](#-prerequisites)
 3. [👩‍🏫 Usage](#-usage)
 4. [⚖️ License](#️-license)
-5. [💁 F.A.Q.](#-faq)
-6. [🔄 Changelog](#-changelog)
-7. [🐛 Bugs & TODO](#-bugs--todo)
+5. [🔄 Changelog](#-changelog)
+6. [🐛 Bugs & TODO](#-bugs--todo)
 
 ## ✏️ In short
+
+This is a school project for the course _[Projet RIO-SDIA](https://moodle.unistra.fr/course/view.php?id=16231)_.
+
+We basically were required to build a chat server for many users. In our implementation, all users (clients) talk to every other user through a server. The given Makefile enables you to perform local checks of the app, as well as using it on a _real_ non-local server.
 
 ## 🔰 Prerequisites
 
@@ -34,7 +37,7 @@ This project currently suppose you do run a recent enough version of Linux with 
 sudo apt -y install < requirements
 ```
 
-Here you can find the code standard used during dev. The compatibility version corresponds to the minimum version in which the program is guaranteed (the real min version could be much lower) to perform as originally intended regarding the terms and conditions mentioned in [LICENSE](LICENSE) and the [main](src/main.c) source file.
+Here you can find the code standard used during dev. The compatibility version corresponds to the minimum version in which the program is guaranteed (the real min version could be much lower) to perform as originally intended regarding the terms and conditions mentioned in [LICENSE](LICENSE) and the [main-client](src/main-client.c) and [main-server](src/main-server.c) source files.
 
 | dev version used  | compatibility version |
 | ----------------- | --------------------- |
@@ -49,16 +52,36 @@ Here you can find the code standard used during dev. The compatibility version c
 Compile debug versions with
 
 ```bash
-make
+make debug
 ```
 
-Alternatively, `make debug-client` produces a debug version of the client side executable binary, `make debug-server` a debug version of the server side executable binary. You can clean with `make clean`.
+Compile release versions with
+
+```bash
+make release
+```
+
+Alternatively, `make debug-client` produces a debug version of the client side executable binary, `make debug-server` a debug version of the server side executable binary ; `make release-client` and `make release-server` produce either a release version of the client side executable, or the server side executable.
+
+We also did provide commands to quick launch our app :
+
+```bash
+make run-client-rpi
+```
+
+is kind of the command you need to quickly get started. It basically launches for you a release client side executable and tries a connection to a rpi3 where a server is supposed to be running (_hopefully_).
+
+If you are a "I'ma try it myself" kind of person, try `make run-server &` to launch a local server and then launch a bunch of clients with `make run-client`.
+
+Choose a username and you are good to go !
 
 You can also run tests with
 
 ```bash
 cd tests
 make check
+make clean
+cd ..
 ```
 
 ## ⚖️ License
@@ -91,8 +114,6 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 
-## 💁 F.A.Q.
-
 ## 🔄 Changelog
 
 Please refer to the [changelog.md](changelog.md) file for the full history.
@@ -100,11 +121,18 @@ Please refer to the [changelog.md](changelog.md) file for the full history.
 <details>
     <summary>  Begining of the project (click here to expand) </summary>
 
-**v0.1.1**
+**v0.1.1** multi chat server
 
 - add a logo / new name for the project
-- think about the communication between cleint and server
+- think about the communication between client and server
 - add first features for the server and client
+
+**v0.1.2** better code basis
+
+- created a [legacy](legacy/) folder for the old code basis
+- use of posix threads
+- use of the readline extern library
+- created rpi targets in the Makefile
 
 </details>
 
@@ -112,4 +140,11 @@ Please refer to the [changelog.md](changelog.md) file for the full history.
 
 **Bugs** (final correction version)
 
+- no `select` function :/
+- fixed sized descriptor table
+
 **TODO** (first implementation version)
+
+- [ ] peer to peer communication
+- [ ] choose whom you wish to send messages
+- [ ] graphical user interface
