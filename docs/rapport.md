@@ -28,6 +28,8 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 4. [**Explications du code**](#Explications-du-code)
 4.1. [**Serveur**](#Serveur)
 4.2. [**Client**](#Client)
+5. [**Futures améliorations**](#Futures-améliorations)
+6. [**Conclusion**](#Conclusion)
 
 ---
 
@@ -35,6 +37,8 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 Le sujet choisi est : 
 - Client - Serveur centralisé multi-utilisateurs avec communication par identifiant
+
+Nous avons implémenté à l'aide de threads ,de sémaphores et de gestion d'entrée sortie bloquantes sans utilisation de `select`.
 
 ---
 # **Principe de fonctionnement**
@@ -99,3 +103,38 @@ Ainsi, on crée un tableau de threads qui seront utilisés pour gérer les conne
 ---
 ## **Client**
 
+Pour le client, on commence par créer notre structure `frame_t` qui contiendra la trame envoyé par le client (elle contient le message ainsi que le nom d'utilisateur du client qui l'a envoyé).
+
+On demande donc a l'utilisateur de saisir son nom d'utilisateur puis on initialise le socket avec le port et l'adresse IP du serveur distant.
+
+```c
+int sockfd;
+frame_t frame;
+
+// Ask user fot username
+char *username = get_line("Username: ");
+trim(username);
+strlcpy(frame.name_id, username, STR_LEN_MAX);
+
+sockfd = init_client(target, port);
+run_client(sockfd, &frame);
+done_client(sockfd);
+
+exit(EXIT_SUCCESS);
+```
+
+Le client se connecte au serveur distant avec la fonction `run_client` qui prend en paramètre le socket et la structure `frame_t` contenant le message a envoyer. Cette fonction utilise des threads le premier qui se charge de lire les messages du serveur et les afficher à l'écran. Le second qui se charge de lire les messages de l'utilisateur et les envoyer au serveur.
+La fonction `done_client` est appelée à la fin du programme pour fermer le socket et libérer les ressources.
+La fonction `trim` permet de supprimer les caractères d'espacement en début et fin de chaîne.
+
+---
+# **Futures améliorations**
+Le projet est actuellement fonctionnel mais est limité dans ces fonctions. Les futures améliorations sont :
+- Choisir à qui envoyer le message car actuellement un message est envoyé à tous les clients
+- Authentification pour les clients
+- Message qui ne transitent pas par le serveur
+- Cryptage des messages
+- Allocation dynamique de la table des descripteurs de socket
+
+# **Conclusion**
+Nous avons donc implémenté un server de chat multi-utilisateurs avec communication par identifiant. Ce projet est encore en cours de développement.
