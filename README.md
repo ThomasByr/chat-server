@@ -119,7 +119,7 @@ POSSIBILITY OF SUCH DAMAGE.
 Please refer to the [changelog.md](changelog.md) file for the full history.
 
 <details>
-    <summary>  Begining of the project (click here to expand) </summary>
+    <summary>  Beginning (click here to expand) </summary>
 
 **v0.1.1** multi chat server
 
