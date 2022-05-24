@@ -210,7 +210,7 @@ void *main_server(void *arg) {
         signal(SIGTERM, on_signal);
     }
 
-    debug(1, "server started, listning on port %s\n", targ->port);
+    debug(1, "server started, listening on port %s\n", targ->port);
 
     // launch thread to handle client requests
     pthread_t tid[NB_CLIENTS];
