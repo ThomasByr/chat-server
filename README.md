@@ -28,7 +28,7 @@
 
 This is a school project for the course _[Projet RIO-SDIA](https://moodle.unistra.fr/course/view.php?id=16231)_.
 
-We basically were required to build a chat server for many users. In our implementation, all users (clients) talk to every other user through a server. The given Makefile enables you to perform local checks of the app, as well as using it on a _real_ non-local server.
+We basically were required to build a chat server for many users. In our implementation, all users (clients) talk to every other user through a server. The given Makefile enables you to perform local checks of the app, as well as using it on a _real_ non-local server. This app features up to 10 (which is easily changeable) simultaneaous clients connections and real passive waiting features using posix thread, semaphores and blocking i/o.
 
 ## 🔰 Prerequisites
 
