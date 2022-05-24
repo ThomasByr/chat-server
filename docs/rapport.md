@@ -34,25 +34,30 @@ backgroundImage: url('https://marp.app/assets/hero-background.svg')
 
 ## **Introduction**
 
-Le sujet choisi est : 
+Le sujet choisi est :
+
 - Client - Serveur centralisé multi-utilisateurs avec communication par identifiant
 
 Nous avons implémenté à l'aide de threads ,de sémaphores et de gestion d'entrée sortie bloquantes sans utilisation de `select`.
 
 ---
+
 ## **Principe de fonctionnement**
 
 ![Sequence_Diagram](Two_Clients_Sequence_Diagram.png)
 
 ---
+
 ## **Utilisation**
 
 Plusieurs choix sont possibles pour tester la bonne execution de l'application :
+
 - Utilisation en local (on lance le serveur et les clients en local pour nos tests).
 - Utilisation en réseau (le serveur est déjà lancé sur un Raspberry et les clients sont connectés au Raspberry distant).
 
 ### **Utilisation en local**
-- On compile et on lance le serveur avec la commande : `make run-server`. Ainsi, le programme serveur sera compilé et lancé en local avec comme port le port **36000**. 
+
+- On compile et on lance le serveur avec la commande : `make run-server`. Ainsi, le programme serveur sera compilé et lancé en local avec comme port le port **36000**.
 
 > On peut aussi lancer le server après compilation avec la commande : `./bin/server -p PORT` avec PORT le numéro de port d'écoute du serveur.
 
@@ -61,22 +66,28 @@ Plusieurs choix sont possibles pour tester la bonne execution de l'application :
 > On peut aussi lancer le client après compilation avec la commande : `./bin/client -p PORT -t TARGET` avec PORT le numéro de port d'écoute du serveur et TARGET l'adresse IP du serveur distant.
 
 ---
+
 ### **Utilisation en réseau**
+
 - Le serveur est déjà lancé sur un Raspberry et les clients seront connectés au Raspberry distant. Il suffit donc juste de lancer et de compiler les clients avec la commande : `make run-client-rpi`.
 
 Le Raspberry distant est actuellement en train d'écouter sur le port **32000** à l'adresse 88.170.206.241. Il est donc utilisable pour tester l'application.
 
 ---
+
 ## **Explications du code**
+
 ### **Serveur**
-Premièrement, on initialise le serveur sur le port d'écoute avec la fonction : 
+
+Premièrement, on initialise le serveur sur le port d'écoute avec la fonction :
+
 ```c
 srv = init_server(targ->port);
 ```
+
 Ainsi sera initialisé le descripteur de fichier du serveur et renvoyé dans la structure `srv` qui contient les informations sur le serveur.
 
-
-Ensuite, on crée tous les threads qui seront utilisés pour gérer les connexions entrantes : 
+Ensuite, on crée tous les threads qui seront utilisés pour gérer les connexions entrantes :
 
 ```c
 // launch thread to handle client requests
@@ -97,9 +108,11 @@ for (int k = 0; k < NB_CLIENTS; k++) {
         pthread_create(&tid[k], NULL, (void *(*)(void *))run_server, srv));
 }
 ```
+
 Ainsi, on crée un tableau de threads qui seront utilisés pour gérer les connexions entrantes. On crée également un tableau de descripteurs de socket qui seront utilisés pour stocker les descripteurs de socket des clients. Le sémaphore `srv->sem` est utilisé pour gérer l'accès concurrent à la structure `srv`.
 
 ---
+
 ### **Client**
 
 Pour le client, on commence par créer notre structure `frame_t` qui contiendra la trame envoyé par le client (elle contient le message ainsi que le nom d'utilisateur du client qui l'a envoyé).
@@ -127,8 +140,11 @@ La fonction `done_client` est appelée à la fin du programme pour fermer le soc
 La fonction `trim` permet de supprimer les caractères d'espacement en début et fin de chaîne.
 
 ---
+
 ## **Futures améliorations**
+
 Le projet est actuellement fonctionnel mais est limité dans ces fonctions. Les futures améliorations sont :
+
 - Choisir à qui envoyer le message car actuellement un message est envoyé à tous les clients
 - Authentification pour les clients
 - Message qui ne transitent pas par le serveur
@@ -136,4 +152,5 @@ Le projet est actuellement fonctionnel mais est limité dans ces fonctions. Les 
 - Allocation dynamique de la table des descripteurs de socket
 
 ## **Conclusion**
+
 Nous avons donc implémenté un server de chat multi-utilisateurs avec communication par identifiant. Ce projet est encore en cours de développement.
