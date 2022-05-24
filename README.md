@@ -6,6 +6,7 @@
 [![GitHub latest commit](https://badgen.net/github/last-commit/ThomasByr/chat-server)](https://gitHub.com/ThomasByr/chat-server/commit/)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/ThomasByr/chat-server/graphs/commit-activity)
 
+[![CodeQL](https://github.com/ThomasByr/chat-server/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/ThomasByr/chat-server/actions/workflows/codeql-analysis.yml)
 [![GitHub version](https://badge.fury.io/gh/ThomasByr%2Fchat-server.svg)](https://github.com/ThomasByr/chat-server)
 [![Author](https://img.shields.io/badge/author-@ThomasByr-blue)](https://github.com/ThomasByr)
 [![Author](https://img.shields.io/badge/author-@ThomasD-blue)](https://github.com/LosKeeper)
